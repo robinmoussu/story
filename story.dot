@@ -1,0 +1,167 @@
+digraph G {
+    compound=true;
+    subgraph cluster0 {
+        label = introduction;
+        start [shape=Mdiamond];
+        elf;
+        dwarf;
+        human;
+
+        start -> dwarf, elf, human;
+    }
+
+    subgraph cluster1 {
+        label = village
+        village;
+        village_morning;
+        children;
+        
+        subgraph cluster5 {
+            label = blacksmith;
+            blacksmith;
+            blacksmith_axe;
+            blacksmith_laugh;
+            blacksmith_nothing;
+        }
+
+        subgraph cluster6 {
+            label = tavern;
+            tavern;
+            rumour;
+            tavern_night;
+            tavern_drink;
+        }
+
+        village -> blacksmith, tavern;
+        village -> children [label="if human"];
+        children -> tavern_drink, blacksmith;
+
+        blacksmith -> blacksmith_axe [label="if dwarf and need weapon"];
+        blacksmith -> blacksmith_laugh [label="if dwarf else"];
+        blacksmith -> blacksmith_nothing [label="else"];
+
+        blacksmith_axe -> village;
+        blacksmith_laugh -> village;
+        blacksmith_nothing -> village;
+
+        tavern -> rumour,tavern_drink;
+        tavern_drink -> tavern_night;
+        rumour -> tavern_night;
+        tavern_night -> village_morning;
+    }
+
+    subgraph cluster2 {
+        label = west;
+        village;
+        field;
+        field_2;
+        farmers;
+
+        subgraph cluster7 {
+            label=chapel;
+            chapel;
+            priest;
+            priest_elf;
+            priest_quest;
+            theologie [shape=Mdiamond];
+        }
+
+        field -> farmers;
+        field -> chapel;
+        field_2 -> farmers;
+        field_2 -> chapel;
+        chapel -> priest;
+        priest -> priest_elf [label="if elf"];
+        priest_elf -> theologie [label="if écaille de dragon"];
+        priest_elf -> priest_quest [label="else"];
+    }
+
+    subgraph cluster3 {
+        label = forest;
+        edge_of_the_wood;
+        dwarf_edge_of_the_wood;
+        clearing;
+        clearing_1;
+        clearing_2;
+        natural_basin;
+        track;
+        river;
+        old_tree;
+        lost [shape=Mdiamond];
+        lumberjack;
+
+        lumberjack -> dwarf_edge_of_the_wood [label="now, if dwarf"];
+        lumberjack -> clearing;
+        lumberjack -> track;
+        clearing -> clearing_2 [label="if second time"];
+        clearing -> clearing_1 [label="else"];
+        clearing_1 -> river, old_tree;
+        clearing_2 -> natural_basin [label="now if elf"];
+        clearing_2 -> lost [label="else"];
+        natural_basin -> track;
+        river -> lumberjack, clearing;
+        old_tree -> clearing;
+    }
+
+    subgraph cluster4 {
+        label = est;
+        dragon;
+        dragon_battle;
+        dragon_studie;
+        dragon_studie_2;
+        road;
+        elf_road [shape=Mdiamond];
+        gobelins;
+        treasure;
+        dwarf_victory [shape=Mdiamond];
+        dwarf_death [shape=Mdiamond];
+        battle_death [shape=Mdiamond];
+
+        dragon -> dragon_battle, dragon_studie;
+        dragon_battle -> village [label=else];
+        dragon_battle -> treasure [label="if dwarf"];
+        dragon_studie -> battle_death [label="now, if not elf"];
+    }
+
+    subgraph cluster8 {
+        label=castel;
+        castel_entrance;
+        castel_human;
+        lord [shape=Mdiamond];
+
+        castel_entrance -> castel_human [label="if human"];
+        castel_human -> lord [label="now if have killed dragon"];
+    }
+
+    castel_entrance -> field_2 [label="else"];
+    castel_human -> field, village, edge_of_the_wood;
+
+    human -> castel_human;
+    elf -> edge_of_the_wood;
+    dwarf -> field;
+
+    field -> edge_of_the_wood, village, castel_entrance;
+    edge_of_the_wood -> clearing;
+    edge_of_the_wood -> dwarf_edge_of_the_wood [label="now, if dwarf"];
+
+    dwarf_edge_of_the_wood -> track [label="if have reason"];
+    dwarf_edge_of_the_wood -> lost [label="else"];
+
+    track -> dragon;
+    dragon_studie -> dragon_studie_2;
+    dragon_studie_2 -> village, elf_road;
+
+    treasure -> village, road;
+    road -> gobelins [label="now if treasure"];
+    road -> edge_of_the_wood, field_2;
+    gobelins -> dwarf_victory [label="if weapon"];
+    gobelins -> dwarf_death [label="else"];
+
+    village_morning -> field, lumberjack, road;
+
+    chapel -> edge_of_the_wood;
+    farmers -> lumberjack;
+    priest_quest -> edge_of_the_wood;
+    lumberjack -> chapel;
+}
+
