@@ -7,6 +7,18 @@ digraph G {
         dwarf;
         human;
 
+        elf [label="- elf -
+            goal: studie dragon
+            and report your observations
+            to a local priest"]
+        human [label="- human -
+            goal: kill a dragon and
+            bring a proof of is death
+            to the local lord"]
+        dwarf [label="- dwarf -
+            goal: kill a dragon to
+            get his treasure, then
+            continue on the road"]
         start -> dwarf, elf, human;
     }
 
@@ -126,17 +138,17 @@ digraph G {
     subgraph cluster8 {
         label=castel;
         castel_entrance;
-        castel_human;
+        courtyart;
         lord [shape=Mdiamond];
 
-        castel_entrance -> castel_human [label="if human"];
-        castel_human -> lord [label="now if have killed dragon"];
+        castel_entrance -> courtyart [label="if human"];
+        courtyart -> lord [label="now if have killed dragon"];
     }
 
     castel_entrance -> field_2 [label="else"];
-    castel_human -> field, village, edge_of_the_wood;
+    courtyart -> field, village, edge_of_the_wood;
 
-    human -> castel_human;
+    human -> courtyart;
     elf -> edge_of_the_wood;
     dwarf -> field;
 
