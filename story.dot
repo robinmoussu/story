@@ -31,8 +31,8 @@ digraph G {
         subgraph cluster5 {
             label = blacksmith;
             blacksmith;
-            blacksmith_axe;
-            blacksmith_laugh;
+            blacksmith_sword;
+            blacksmith_dwarf;
             blacksmith_nothing;
         }
 
@@ -48,12 +48,12 @@ digraph G {
         village -> children [label="if human"];
         children -> tavern_drink, blacksmith;
 
-        blacksmith -> blacksmith_axe [label="if dwarf and need weapon"];
-        blacksmith -> blacksmith_laugh [label="if dwarf else"];
+        blacksmith -> blacksmith_dwarf [label="if dwarf"]
+        blacksmith_dwarf -> blacksmith_sword [label="if need weapon"];
+        blacksmith_dwarf -> village [label="else"];
         blacksmith -> blacksmith_nothing [label="else"];
 
-        blacksmith_axe -> village;
-        blacksmith_laugh -> village;
+        blacksmith_sword -> village;
         blacksmith_nothing -> village;
 
         tavern -> rumour,tavern_drink;
