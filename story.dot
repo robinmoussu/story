@@ -40,7 +40,6 @@ digraph G {
             label = tavern;
             tavern;
             rumour;
-            tavern_night;
             tavern_drink;
         }
 
@@ -57,14 +56,12 @@ digraph G {
         blacksmith_nothing -> village;
 
         tavern -> rumour,tavern_drink;
-        tavern_drink -> tavern_night;
-        rumour -> tavern_night;
-        tavern_night -> village_morning;
+        tavern_drink -> village_morning;
+        rumour -> village_morning;
     }
 
     subgraph cluster2 {
         label = west;
-        village;
         field;
         field_2;
         farmers;
