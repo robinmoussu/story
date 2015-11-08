@@ -153,15 +153,15 @@ digraph G {
     edge_of_the_wood -> clearing;
     edge_of_the_wood -> dwarf_edge_of_the_wood [label="now, if dwarf"];
 
-    dwarf_edge_of_the_wood -> track [label="if have reason"];
-    dwarf_edge_of_the_wood -> lost [label="else"];
+    dwarf_edge_of_the_wood -> lost;
 
     track -> dragon;
     dragon_studie -> dragon_studie_2;
     dragon_studie_2 -> village, elf_road;
 
     treasure -> village, road;
-    road -> gobelins [label="now if treasure"];
+    road -> gobelins [label="if treasure and want to continue your journey far away"];
+    road -> gobelins [label="else if dwarf"];
     road -> edge_of_the_wood, field_2;
     gobelins -> dwarf_victory [label="if weapon"];
     gobelins -> dwarf_death [label="else"];
