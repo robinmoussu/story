@@ -5,9 +5,13 @@ graph: story.dot
 
 book: story/*.tex
 	mkdir build output -p
-	cd story && latexmk -aux-directory=../build -output-directory=../output story.tex -pdf -dvi-
-	# https://linuxfr.org/forums/programmationautre/posts/problème-dimpression-dun-document-latex-a5-sur-a4
+	cd story && latexmk -aux-directory=../build -output-directory=../build story.tex -dvi- -pdf
+	ln build/story.pdf output/
+	cd output && pdfbook --short-edge story.pdf
 
-.PHONY: clean
+.PHONY: clean realclean
 clean:
-	rm -rf build story.png output/{story.aux,story.dvi,story.fls,story.log}
+	rm -rf build story.png
+
+realclean: clean
+	rm -rf output
