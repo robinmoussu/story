@@ -8,12 +8,41 @@
 % village: Greenhil
 % tavern: deadly scorpion
 
-\documentclass[11pt]{book}
+\documentclass[a5paper,11pt]{book}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[a5paper]{geometry}
+
+\usepackage{etoolbox}
+\usepackage{latexsym}
+
+\newcounter{SecNum}
+\renewcommand{\section}[1]{
+    \ifnumgreater{\value{SecNum}}{0}{
+        \vspace{1.5 em}
+    }
+
+    \refstepcounter{SecNum}
+    \label{#1}
+    \begin{center}
+        \large
+        $\star$
+        \hspace{3 ex}
+        \arabic{SecNum}
+        \hspace{3 ex}
+        $\star$
+    \end{center}
+
+    \par
+    \vspace{1.5 em}
+}
+
 \begin{document}
 
+\input{introduction.tex}
 \input{castel.tex}
 \input{forest.tex}
-\input{introduction.tex}
 \input{village.tex}
 \input{est.tex}
 \input{west.tex}
