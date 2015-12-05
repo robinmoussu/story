@@ -6,7 +6,7 @@ graph: story.dot
 book: story/*.tex
 	mkdir build output -p
 	cd story && latexmk -aux-directory=../build -output-directory=../build story.tex -dvi- -pdf
-	ln build/story.pdf output/
+	ln build/story.pdf output/ -f
 	cd output && pdfbook --short-edge story.pdf
 
 .PHONY: clean realclean

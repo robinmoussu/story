@@ -6,3 +6,5 @@ build
 output/story-book.pdf
 output/story.pdf
 output/story.png
+*.swp
+.*.swp
