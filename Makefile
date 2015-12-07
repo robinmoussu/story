@@ -1,4 +1,6 @@
 all: booklet graph
+	@echo
+	@cd story &&./wc.sh | xargs echo "word written: "
 
 graph: story.dot
 	dot story.dot > output/story.png -Tpng

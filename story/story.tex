@@ -8,47 +8,69 @@
 % village: Greenhil
 % tavern: deadly scorpion
 
-\documentclass[a5paper,10]{book}
+\documentclass[a5paper,10,twoside]{book}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[a5paper]{geometry}
+\usepackage[a5paper, lmargin=2.5cm, rmargin=2cm, top=2.2cm, bottom=2.5cm]{geometry}
 \usepackage[english]{babel}
 
 \usepackage{etoolbox}
+\usepackage{graphicx}
 \usepackage{latexsym}
+\usepackage{fancyhdr}
+
+\def\secondpage{
+    \clearpage\null\vfill
+    \pagestyle{empty}
+    \cleardoublepage
+    \rfoot{\thepage}
+}
 
 \newcounter{SecNum}
 \renewcommand{\section}[1]{
-    \ifnumgreater{\value{SecNum}}{0}{
-        \vspace{1.5 em}
-    }
+    \pagebreak[3]
+    %\ifnumgreater{\value{SecNum}}{0}{
+        %\vspace{1.5 em}
+    %}
 
     \refstepcounter{SecNum}
     \label{#1}
     \begin{center}
         \large
         $\star$
-        \hspace{3 ex}
+        %\hspace{.8 ex}
         \arabic{SecNum}
-        \hspace{3 ex}
+        %\hspace{.8 ex}
         $\star$
+        \nopagebreak[4]
     \end{center}
-
-    \par
-    \vspace{1.5 em}
 }
 
 
 \title{Three fantasy tales}
-\author{Robin Moussu}
-\date{December 2015}
+\author{ Robin Moussu }
+\date{ December 2015 }
 
 \begin{document}
 
-\maketitle
-\thispagestyle{empty}
-\cleardoublepage
+\makeatletter
+  \begin{titlepage}
+  \centering
+    ~
+    \vfill
+        {\LARGE \textbf{\@title}} \\
+    \vspace{2em}
+        {\large \@author} \\
+    \vspace{2em}
+        {\large\textbf{\@date}}\\
+    \vfill
+    \includegraphics[width=4em]{cc-by.eps}\par
+        Permission is granted to copy, distribute and\slash or modify 
+        this document under the terms of the CC-BY licence.
+  \end{titlepage}
+  \secondpage
+\makeatother
 
 \input{introduction.tex}
 \input{castel.tex}

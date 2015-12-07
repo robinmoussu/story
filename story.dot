@@ -89,35 +89,29 @@ digraph G {
         label = forest;
         edge_of_the_wood;
         dwarf_edge_of_the_wood;
-        clearing;
         clearing_1;
         clearing_2;
         natural_basin;
-        track;
         river;
         old_tree;
         lost [shape=Mdiamond];
         lumberjack;
 
-        lumberjack -> dwarf_edge_of_the_wood [label="now, if dwarf"];
-        lumberjack -> clearing;
-        lumberjack -> track;
-        clearing -> clearing_2 [label="if second time"];
-        clearing -> clearing_1 [label="else"];
+        edge_of_the_wood -> clearing_1;
+        lumberjack -> lost [label="now, if dwarf"];
+        lumberjack -> clearing_1;
         clearing_1 -> river, old_tree;
         clearing_2 -> natural_basin [label="now if elf"];
         clearing_2 -> lost [label="else"];
-        natural_basin -> track;
-        river -> lumberjack, clearing;
-        old_tree -> clearing;
+        river -> lumberjack, clearing_2;
+        old_tree -> clearing_2;
     }
 
     subgraph cluster4 {
         label = est;
-        dragon;
+        track;
         dragon_battle;
         dragon_studie;
-        dragon_studie_2;
         road;
         elf_road [shape=Mdiamond];
         gobelins;
@@ -126,8 +120,10 @@ digraph G {
         dwarf_death [shape=Mdiamond];
         battle_death [shape=Mdiamond];
 
-        dragon -> dragon_battle, dragon_studie;
+        
+        track -> dragon_battle, dragon_studie;
         dragon_battle -> village [label=else];
+        dragon_battle -> battle_death [label="now, if elf"];
         dragon_battle -> treasure [label="if dwarf"];
         dragon_studie -> battle_death [label="now, if not elf"];
     }
@@ -149,20 +145,20 @@ digraph G {
     elf -> edge_of_the_wood;
     dwarf -> field;
 
+    priest -> edge_of_the_wood [label="else"];
     field -> edge_of_the_wood, village, castel_entrance;
-    edge_of_the_wood -> clearing;
-    edge_of_the_wood -> dwarf_edge_of_the_wood [label="now, if dwarf"];
 
+    edge_of_the_wood -> dwarf_edge_of_the_wood [label="now, if dwarf"];
     dwarf_edge_of_the_wood -> lost;
 
-    track -> dragon;
-    dragon_studie -> dragon_studie_2;
-    dragon_studie_2 -> village, elf_road;
+    lumberjack -> track;
+    natural_basin -> track;
+    dragon_studie -> village, elf_road;
 
     treasure -> village, road;
-    road -> gobelins [label="if treasure and want to continue your journey far away"];
+    road -> track [label="if dwarf and not treasure"]
     road -> gobelins [label="else if dwarf"];
-    road -> edge_of_the_wood, field_2;
+    road -> edge_of_the_wood, field_2, village;
     gobelins -> dwarf_victory [label="if weapon"];
     gobelins -> dwarf_death [label="else"];
 
@@ -170,6 +166,8 @@ digraph G {
 
     chapel -> edge_of_the_wood;
     farmers -> lumberjack;
+    farmers -> castel_entrance;
+    farmers -> village;
     priest_quest -> edge_of_the_wood;
     lumberjack -> chapel;
 }
