@@ -1,7 +1,7 @@
 digraph G {
     compound=true;
     subgraph cluster0 {
-        label = introduction;
+        label = "introduction.tex";
         start [shape=Mdiamond];
         elf;
         dwarf;
@@ -23,7 +23,7 @@ digraph G {
     }
 
     subgraph cluster1 {
-        label = village
+        label = "villag.tex";
         village;
         village_morning;
         children;
@@ -31,7 +31,6 @@ digraph G {
         subgraph cluster5 {
             label = blacksmith;
             blacksmith;
-            blacksmith_sword;
             blacksmith_dwarf;
             blacksmith_nothing;
         }
@@ -40,6 +39,7 @@ digraph G {
             label = tavern;
             tavern;
             rumour;
+            human_drink_victory;
             tavern_drink;
         }
 
@@ -48,45 +48,19 @@ digraph G {
         children -> tavern_drink, blacksmith;
 
         blacksmith -> blacksmith_dwarf [label="if dwarf"]
-        blacksmith_dwarf -> blacksmith_sword [label="if need weapon"];
-        blacksmith_dwarf -> village [label="else"];
         blacksmith -> blacksmith_nothing [label="else"];
+        blacksmith_dwarf -> tavern
 
-        blacksmith_sword -> village;
         blacksmith_nothing -> village;
 
+        human_drink_victory -> tavern_drink;
         tavern -> rumour,tavern_drink;
         tavern_drink -> village_morning;
         rumour -> village_morning;
     }
 
-    subgraph cluster2 {
-        label = west;
-        field;
-        field_2;
-        farmers;
-
-        subgraph cluster7 {
-            label=chapel;
-            chapel;
-            priest;
-            priest_elf;
-            priest_quest;
-            theologie [shape=Mdiamond];
-        }
-
-        field -> farmers;
-        field -> chapel;
-        field_2 -> farmers;
-        field_2 -> chapel;
-        chapel -> priest;
-        priest -> priest_elf [label="if elf"];
-        priest_elf -> theologie [label="if écaille de dragon"];
-        priest_elf -> priest_quest [label="else"];
-    }
-
     subgraph cluster3 {
-        label = forest;
+        label = "forest.tex";
         edge_of_the_wood;
         dwarf_edge_of_the_wood;
         clearing_1;
@@ -96,10 +70,12 @@ digraph G {
         old_tree;
         lost [shape=Mdiamond];
         lumberjack;
+        lumberjack_2;
 
         edge_of_the_wood -> clearing_1;
         lumberjack -> lost [label="now, if dwarf"];
         lumberjack -> clearing_1;
+        lumberjack -> lumberjack_2;
         clearing_1 -> river, old_tree;
         clearing_2 -> natural_basin [label="now if elf"];
         clearing_2 -> lost [label="else"];
@@ -107,29 +83,45 @@ digraph G {
         old_tree -> clearing_2;
     }
 
-    subgraph cluster4 {
-        label = est;
+    subgraph cluster7 {
+        label = "chapel.tex";
+        chapel;
+        priest;
+        priest_elf;
+        priest_quest;
+        theologie [shape=Mdiamond];
+
+        chapel -> priest;
+        priest -> priest_elf [label="if elf"];
+        priest_elf -> theologie [label="if écaille de dragon"];
+        priest_elf -> priest_quest [label="else"];
+    }
+
+    subgraph cluster9 {
+        label = "dragon.tex";
         track;
         dragon_battle;
         dragon_studie;
-        road;
+        battle_death [shape=Mdiamond];
         elf_road [shape=Mdiamond];
+
+        track -> dragon_battle, dragon_studie;
+        dragon_studie -> battle_death [label="now, if not elf"];
+    }
+
+    subgraph cluster4 {
+        label = "country.tex";
+
+        road;
         gobelins;
         treasure;
         dwarf_victory [shape=Mdiamond];
         dwarf_death [shape=Mdiamond];
-        battle_death [shape=Mdiamond];
-
-        
-        track -> dragon_battle, dragon_studie;
-        dragon_battle -> village [label=else];
-        dragon_battle -> battle_death [label="now, if elf"];
-        dragon_battle -> treasure [label="if dwarf"];
-        dragon_studie -> battle_death [label="now, if not elf"];
+        field;
     }
 
     subgraph cluster8 {
-        label=castel;
+        label = "castel.tex";
         castel_entrance;
         courtyart;
         lord [shape=Mdiamond];
@@ -138,36 +130,39 @@ digraph G {
         courtyart -> lord [label="now if have killed dragon"];
     }
 
-    castel_entrance -> field_2 [label="else"];
+    castel_entrance -> field [label="else"];
     courtyart -> field, village, edge_of_the_wood;
 
     human -> courtyart;
     elf -> edge_of_the_wood;
     dwarf -> field;
 
+    priest -> road [label="else"];
     priest -> edge_of_the_wood [label="else"];
-    field -> edge_of_the_wood, village, castel_entrance;
+    field -> edge_of_the_wood, village, castel_entrance, chapel;
 
     edge_of_the_wood -> dwarf_edge_of_the_wood [label="now, if dwarf"];
     dwarf_edge_of_the_wood -> lost;
 
-    lumberjack -> track;
+    lumberjack_2 -> track;
     natural_basin -> track;
     dragon_studie -> village, elf_road;
 
-    treasure -> village, road;
+    treasure -> road;
     road -> track [label="if dwarf and not treasure"]
     road -> gobelins [label="else if dwarf"];
-    road -> edge_of_the_wood, field_2, village;
+    road -> field;
+    road -> village;
     gobelins -> dwarf_victory [label="if weapon"];
     gobelins -> dwarf_death [label="else"];
+
+    dragon_battle -> human_drink_victory [label=else];
+    dragon_battle -> battle_death [label="now, if elf"];
+    dragon_battle -> treasure [label="if dwarf"];
 
     village_morning -> field, lumberjack, road;
 
     chapel -> edge_of_the_wood;
-    farmers -> lumberjack;
-    farmers -> castel_entrance;
-    farmers -> village;
     priest_quest -> edge_of_the_wood;
     lumberjack -> chapel;
 }
