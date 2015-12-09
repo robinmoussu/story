@@ -104,6 +104,7 @@ digraph G {
         dragon_studie;
         battle_death [shape=Mdiamond];
         elf_road [shape=Mdiamond];
+        treasure;
 
         track -> dragon_battle, dragon_studie;
         dragon_studie -> battle_death [label="now, if not elf"];
@@ -114,7 +115,6 @@ digraph G {
 
         road;
         gobelins;
-        treasure;
         dwarf_victory [shape=Mdiamond];
         dwarf_death [shape=Mdiamond];
         field;
