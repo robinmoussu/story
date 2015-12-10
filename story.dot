@@ -74,7 +74,7 @@ digraph G {
 
         edge_of_the_wood -> clearing_1;
         lumberjack -> lost [label="now, if dwarf"];
-        lumberjack -> clearing_1;
+        lumberjack -> edge_of_the_wood;
         lumberjack -> lumberjack_2;
         clearing_1 -> river, old_tree;
         clearing_2 -> natural_basin [label="now if elf"];
@@ -145,6 +145,7 @@ digraph G {
     dwarf_edge_of_the_wood -> lost;
 
     lumberjack_2 -> track;
+    lumberjack_2 -> dwarf_edge_of_the_wood [label="now if dwarf"];
     natural_basin -> track;
     dragon_studie -> village, elf_road;
 
