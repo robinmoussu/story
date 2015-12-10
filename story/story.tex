@@ -8,7 +8,7 @@
 % village: Greenhil
 % tavern: deadly scorpion
 
-\documentclass[a5paper,10,twoside]{book}
+\documentclass[a5paper,11pt,twoside]{book}
 %\documentclass[ebook,oneside,openany]{memoir}
 
 \usepackage[T1]{fontenc}
@@ -25,7 +25,6 @@
 
 \def\secondpage{
     \clearpage\null\vfill
-    \pagestyle{empty}
     \cleardoublepage
     \rfoot{\thepage}
 }
@@ -55,6 +54,7 @@
 \date{ December 2015 }
 
 \begin{document}
+\pagestyle{empty}
 
 \makeatletter
   \begin{titlepage}
@@ -71,7 +71,7 @@
         Permission is granted to copy, distribute and\slash or modify 
         this document under the terms of the CC-BY licence.
   \end{titlepage}
-  \secondpage
+  %\secondpage
 \makeatother
 
 \input{introduction.tex}
